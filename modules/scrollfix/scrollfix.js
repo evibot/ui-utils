@@ -35,11 +35,15 @@ angular.module('ui.scrollfix',[]).directive('uiScrollfix', ['$window', function 
         }
       }
 
-      fixLimit = absolute ? attrs.uiScrollfix : elm[0].offsetTop + shift;
+      // Referencing from parent element instead of browser top, use offset().top instead
+      //fixLimit = absolute ? attrs.uiScrollfix : elm[0].offsetTop + shift;
+      fixLimit = absolute ? attrs.uiScrollfix : $(elm).offset().top + shift;
 
       function onScroll() {
 
-        var limit = absolute ? attrs.uiScrollfix : elm[0].offsetTop + shift;
+        // see line 38
+        //var limit = absolute ? attrs.uiScrollfix : elm[0].offsetTop + shift;
+        var limit = absolute ? attrs.uiScrollfix : $(elm).offset().top + shift;
 
         // if pageYOffset is defined use it, otherwise use other crap for IE
         var offset = uiScrollfixTarget ? $target[0].scrollTop : getWindowScrollTop();
